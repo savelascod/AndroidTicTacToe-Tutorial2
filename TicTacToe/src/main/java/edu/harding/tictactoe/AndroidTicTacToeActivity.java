@@ -1,8 +1,8 @@
 package edu.harding.tictactoe;
 
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +55,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_android_tic_tac_toe, menu);
+        super.onCreateOptionsMenu(menu);
+        menu.add("New Game");
         return true;
     }
 
@@ -64,24 +65,18 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        startNewGame();
+        return true;
     }
 
     private void setMove(char player, int location) {
-        mGame.setMove(player,location);
+        mGame.setMove(player, location);
         mBoardButtons[location].setEnabled(false);
         mBoardButtons[location].setText(String.valueOf(player));
-        if(player == TicTacToeGame.HUMAN_PLAYER)
-            mBoardButtons[location].setTextColor(Color.rgb(0,200,0));
+        if (player == TicTacToeGame.HUMAN_PLAYER)
+            mBoardButtons[location].setTextColor(Color.rgb(0, 200, 0));
         else
-            mBoardButtons[location].setTextColor(Color.rgb(200,0,0));
+            mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
 
     }
 
