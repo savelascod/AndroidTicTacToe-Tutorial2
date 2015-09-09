@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="first_human">You got first</string>
+    <string name="turn_human">Your turn</string>
+    <string name="turn_computer">Android's turn</string>
+    <string name="result_tie">It's a tie</string>
+    <string name="result_human_win">You won!</string>
+    <string name="result_compuet_win">Android won!</string>
 </resources>
