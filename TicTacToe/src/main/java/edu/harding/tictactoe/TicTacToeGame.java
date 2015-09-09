@@ -29,16 +29,6 @@ public class TicTacToeGame {
         mRand = new Random();
     }
 
-    private void displayBoard() {
-        System.out.println();
-        System.out.println(mBoard[0] + " | " + mBoard[1] + " | " + mBoard[2]);
-        System.out.println("-----------");
-        System.out.println(mBoard[3] + " | " + mBoard[4] + " | " + mBoard[5]);
-        System.out.println("-----------");
-        System.out.println(mBoard[6] + " | " + mBoard[7] + " | " + mBoard[8]);
-        System.out.println();
-    }
-    
     //Clear the board of all X' and 0' by setting all spots to OPEN_SPOT
     public void clearBoard() {
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -64,7 +54,6 @@ public class TicTacToeGame {
                 char curr = mBoard[i];
                 mBoard[i] = COMPUTER_PLAYER;
                 if (checkForWinner() == 3) {
-                    System.out.println("Computer is moving to " + (i + 1));
                     return i;
                 } else mBoard[i] = curr;
             }
@@ -77,7 +66,6 @@ public class TicTacToeGame {
                 mBoard[i] = HUMAN_PLAYER;
                 if (checkForWinner() == 2) {
                     mBoard[i] = COMPUTER_PLAYER;
-                    System.out.println("Computer is moving to " + (i + 1));
                     return i;
                 } else mBoard[i] = curr;
             }
@@ -86,7 +74,6 @@ public class TicTacToeGame {
         do {
             move = mRand.nextInt(BOARD_SIZE);
         } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
-        System.out.println("Computer is moving to " + (move + 1));
         mBoard[move] = COMPUTER_PLAYER;
         return move;
     }
