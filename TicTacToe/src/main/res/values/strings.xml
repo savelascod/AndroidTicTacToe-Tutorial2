@@ -8,5 +8,5 @@
     <string name="turn_computer">Android's turn</string>
     <string name="result_tie">It's a tie</string>
     <string name="result_human_win">You won!</string>
-    <string name="result_compuet_win">Android won!</string>
+    <string name="result_computer_win">Android won!</string>
 </resources>

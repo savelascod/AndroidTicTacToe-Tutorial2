@@ -97,19 +97,19 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
 
                 int winner = mGame.checkForWinner();
                 if (winner == 0) {
-                    mInfotextView.setText("It's Android's turn");
+                    mInfotextView.setText(R.string.turn_computer);
                     int move = mGame.getComputerMove();
                     setMove(TicTacToeGame.COMPUTER_PLAYER, move);
                     winner = mGame.checkForWinner();
                 }
                 if (winner == 0)
-                    mInfotextView.setText("It's your turn");
+                    mInfotextView.setText(R.string.turn_human);
                 else if (winner == 1)
-                    mInfotextView.setText("It's a tie!");
+                    mInfotextView.setText(R.string.result_tie);
                 else if (winner == 2)
-                    mInfotextView.setText("You won");
+                    mInfotextView.setText(R.string.result_human_win);
                 else
-                    mInfotextView.setText("Android won!");
+                    mInfotextView.setText(R.string.result_computer_win);
             }
         }
     }
