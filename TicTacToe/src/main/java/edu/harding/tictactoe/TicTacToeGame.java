@@ -15,7 +15,7 @@ public class TicTacToeGame {
     private char mBoard[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
     private Random mRand;
     //Current difficulty level
-    private DifficultyLevel mDifficultyLevel = DifficultyLevel.Harder;
+    private DifficultyLevel mDifficultyLevel = DifficultyLevel.Expert;
 
     public TicTacToeGame() {
         // Seed the random number generator
@@ -54,7 +54,7 @@ public class TicTacToeGame {
                 move = getBlockingMove();
             }
             if (move == -1) {
-                getRandomMove();
+                move = getRandomMove();
             }
         }
         return move;
