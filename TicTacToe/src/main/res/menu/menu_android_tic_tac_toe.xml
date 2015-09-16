@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".AndroidTicTacToeActivity">
-    <item android:id="@+id/new_game" android:title="@string/menu_new_game"></item>
-    <item android:id="@+id/ai_difficulty" android:title="@string/menu_ai_difficulty"></item>
-    <item android:id="@+id/quit" android:title="@string/menu_quit"></item>
+    <item android:id="@+id/new_game" android:title="@string/menu_new_game" android:icon="@drawable/new_game"></item>
+    <item android:id="@+id/ai_difficulty" android:title="@string/menu_ai_difficulty"
+          android:icon="@drawable/difficulty_level"></item>
+    <item android:id="@+id/quit" android:title="@string/menu_quit" android:icon="@drawable/quit_game"></item>
 </menu>
