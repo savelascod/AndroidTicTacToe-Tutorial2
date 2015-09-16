@@ -3,7 +3,6 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
-              android:gravity="center_horizontal"
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
@@ -33,4 +32,22 @@
     <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/information"
               android:gravity="center_horizontal" android:textSize="20dp" android:layout_marginTop="20dp"
               android:text="Info"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView android:paddingRight="7dp" android:id="@+id/score_board_label" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_board_label"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_human_label" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_human_label"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_human" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/score_human"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_android_label" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_android_label"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_android" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_android"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_ties_label" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_android_label"/>
+        <TextView android:paddingRight="7dp" android:id="@+id/score_ties" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:text="@string/score_android"/>
+    </LinearLayout>
 </LinearLayout>

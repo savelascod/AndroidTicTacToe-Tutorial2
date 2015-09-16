@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 public class AndroidTicTacToeActivity extends ActionBarActivity {
 
@@ -16,6 +18,14 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
 
     private Button mBoardButtons[];
     private TextView mInfotextView;
+
+    private TextView mAndroidScoretextView;
+    private TextView mTiesScoretextView;
+    private TextView mHumanScoretextView;
+
+    private int totalTiesScore;
+    private int totalHumanScore;
+    private int totalAndroidScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +45,37 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
 
         mInfotextView = (TextView) findViewById(R.id.information);
 
+        mTiesScoretextView = (TextView) findViewById(R.id.score_ties);
+        mHumanScoretextView = (TextView) findViewById(R.id.score_human);
+        mAndroidScoretextView = (TextView) findViewById(R.id.score_android);
+
         mGame = new TicTacToeGame();
 
         this.startNewGame();
     }
 
     private void startNewGame() {
+        Random random = new Random();
         mGame.clearBoard();
+
+        //reset scores.
+        totalAndroidScore = 0;
+        totalHumanScore = 0;
+        totalTiesScore = 0;
 
         for (int i = 0; i < mBoardButtons.length; i++) {
             mBoardButtons[i].setText(" ");
             mBoardButtons[i].setEnabled(true);
             mBoardButtons[i].setOnClickListener(new ButtonClickListener(i));
-            mInfotextView.setText("You got first");
         }
+        if (random.nextInt(2) == 0) {
+            mInfotextView.setText(R.string.first_turn_human);
+        } else {
+            mInfotextView.setText(R.string.first_turn_android);
+            int move = mGame.getComputerMove();
+            setMove(TicTacToeGame.COMPUTER_PLAYER, move);
+        }
+
     }
 
 
@@ -102,14 +129,26 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
                     setMove(TicTacToeGame.COMPUTER_PLAYER, move);
                     winner = mGame.checkForWinner();
                 }
-                if (winner == 0)
+                if (winner == 0) {
                     mInfotextView.setText(R.string.turn_human);
-                else if (winner == 1)
+                } else if (winner == 1) {
+                    totalTiesScore += 1;
                     mInfotextView.setText(R.string.result_tie);
-                else if (winner == 2)
+                    mTiesScoretextView.setText(String.valueOf(totalTiesScore));
+
+
+                } else if (winner == 2) {
+                    totalHumanScore += 1;
                     mInfotextView.setText(R.string.result_human_win);
-                else
+                    mHumanScoretextView.setText(String.valueOf(totalHumanScore));
+
+                } else {
+                    totalAndroidScore += 1;
                     mInfotextView.setText(R.string.result_computer_win);
+                    mAndroidScoretextView.setText(String.valueOf(totalAndroidScore));
+
+                }
+
             }
         }
     }
