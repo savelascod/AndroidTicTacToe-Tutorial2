@@ -18,4 +18,7 @@
     <string name="score_human">0</string>
     <string name="score_android">0</string>
     <string name="score_ties">0</string>
+    <string name="menu_new_game">New Game</string>
+    <string name="menu_ai_difficulty">Difficulty</string>
+    <string name="menu_quit">Quit</string>
 </resources>
