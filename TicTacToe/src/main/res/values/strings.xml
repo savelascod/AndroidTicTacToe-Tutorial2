@@ -10,11 +10,11 @@
     <string name="result_human_win">You won!</string>
     <string name="result_computer_win">Android won!</string>
     <string name="first_turn_human">You got First</string>
-    <string name="first_turn_android">Android moved first, now its your turn</string>
+    <string name="first_turn_android">Android moved first</string>
     <string name="score_human_label">Human:</string>
     <string name="score_android_label">Android:</string>
     <string name="score_board_label">Board</string>
-    <string name="score_ties_label">0</string>
+    <string name="score_ties_label">Ties:</string>
     <string name="score_human">0</string>
     <string name="score_android">0</string>
     <string name="score_ties">0</string>

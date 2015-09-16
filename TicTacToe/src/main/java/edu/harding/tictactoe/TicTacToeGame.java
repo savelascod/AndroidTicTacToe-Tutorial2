@@ -5,24 +5,17 @@ package edu.harding.tictactoe;
  */
 /* TicTacToeConsole.java * By Frank McCown (Harding University) * * This is a tic-tac-toe game that runs in the console window. The human * is X and the computer is O. */
 
-import android.widget.Button;
-import android.widget.TextView;
-
-import java.io.Console;
-import java.util.InputMismatchException;
 import java.util.Random;
-import java.util.Scanner;
 
 public class TicTacToeGame {
-    private char mBoard[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-
-    private Random mRand;
     public static final char HUMAN_PLAYER = 'X';
     public static final char COMPUTER_PLAYER = 'O';
     public static final char OPEN_SPOT = ' ';
     public static final int BOARD_SIZE = 9;
-
+    private char mBoard[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    private Random mRand;
+    //Current difficulty level
+    private DifficultyLevel mDifficultyLevel = DifficultyLevel.Harder;
 
     public TicTacToeGame() {
         // Seed the random number generator
@@ -47,34 +40,61 @@ public class TicTacToeGame {
     //return the best move for the computer to make. You must call setMove()
     // to make the computer move to that location
     public int getComputerMove() {
+        int move = -1;
+        if (mDifficultyLevel == DifficultyLevel.Easy) {
+            move = getRandomMove();
+        } else if (mDifficultyLevel == DifficultyLevel.Harder) {
+            move = getWinningMove();
+            if (move == -1) {
+                move = getRandomMove();
+            }
+        } else if (mDifficultyLevel == DifficultyLevel.Expert) {
+            move = getWinningMove();
+            if (move == -1) {
+                move = getBlockingMove();
+            }
+            if (move == -1) {
+                getRandomMove();
+            }
+        }
+        return move;
+    }
+
+    public int getRandomMove() {
         int move;
-        // First see if there's a move computer can make to win
+        do {
+            move = mRand.nextInt(BOARD_SIZE);
+        } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
+        return move;
+    }
+
+    public int getWinningMove() {
+        int move = -1;
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) {
                 char curr = mBoard[i];
                 mBoard[i] = COMPUTER_PLAYER;
                 if (checkForWinner() == 3) {
-                    return i;
-                } else mBoard[i] = curr;
+                    move = i;
+                }
+                mBoard[i] = curr;
             }
         }
-        // See if there's a move O can make to block X from winning
+        return move;
+    }
+
+    public int getBlockingMove() {
+        int move = -1;
         for (int i = 0; i < BOARD_SIZE; i++) {
             if (mBoard[i] != HUMAN_PLAYER && mBoard[i] != COMPUTER_PLAYER) {
                 char curr = mBoard[i];
-                // Save the current number
                 mBoard[i] = HUMAN_PLAYER;
                 if (checkForWinner() == 2) {
-                    mBoard[i] = COMPUTER_PLAYER;
-                    return i;
-                } else mBoard[i] = curr;
+                    move = i;
+                }
+                mBoard[i] = curr;
             }
         }
-        // Generate random move
-        do {
-            move = mRand.nextInt(BOARD_SIZE);
-        } while (mBoard[move] == HUMAN_PLAYER || mBoard[move] == COMPUTER_PLAYER);
-        mBoard[move] = COMPUTER_PLAYER;
         return move;
     }
 
@@ -106,5 +126,18 @@ public class TicTacToeGame {
         }
         // If we make it through the previous loop, all places are taken, so it's a tie
         return 1;
+    }
+
+    public DifficultyLevel getmDifficultyLevel() {
+        return mDifficultyLevel;
+    }
+
+    public void setmDifficultyLevel(DifficultyLevel mDifficultyLevel) {
+        this.mDifficultyLevel = mDifficultyLevel;
+    }
+
+    //computer's difficulty levels
+    public enum DifficultyLevel {
+        Easy, Harder, Expert
     }
 }

@@ -46,7 +46,7 @@
         <TextView android:paddingRight="7dp" android:id="@+id/score_android" android:layout_width="wrap_content"
                   android:layout_height="wrap_content" android:text="@string/score_android"/>
         <TextView android:paddingRight="7dp" android:id="@+id/score_ties_label" android:layout_width="wrap_content"
-                  android:layout_height="wrap_content" android:text="@string/score_android_label"/>
+                  android:layout_height="wrap_content" android:text="@string/score_ties_label"/>
         <TextView android:paddingRight="7dp" android:id="@+id/score_ties" android:layout_width="wrap_content"
                   android:layout_height="wrap_content" android:text="@string/score_android"/>
     </LinearLayout>

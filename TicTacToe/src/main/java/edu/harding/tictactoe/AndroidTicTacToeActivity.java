@@ -32,6 +32,10 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_tic_tac_toe);
 
+        totalAndroidScore = 0;
+        totalHumanScore = 0;
+        totalTiesScore = 0;
+
         mBoardButtons = new Button[TicTacToeGame.BOARD_SIZE];
         mBoardButtons[0] = (Button) findViewById(R.id.one);
         mBoardButtons[1] = (Button) findViewById(R.id.two);
@@ -57,11 +61,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
     private void startNewGame() {
         Random random = new Random();
         mGame.clearBoard();
-
-        //reset scores.
-        totalAndroidScore = 0;
-        totalHumanScore = 0;
-        totalTiesScore = 0;
 
         for (int i = 0; i < mBoardButtons.length; i++) {
             mBoardButtons[i].setText(" ");
