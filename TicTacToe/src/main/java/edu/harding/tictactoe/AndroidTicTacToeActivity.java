@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.harding.tictactoe.DifficultyAlertDialog.AlertPositiveLevelListener;
 import edu.harding.tictactoe.QuitAlertDialog.AlertPositiveQuitListener;
 
@@ -150,7 +151,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             case 2:
                 mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
         }
-
+        Toast.makeText(getApplicationContext(), String.valueOf(TicTacToeGame.difficultyLevels[position]), Toast.LENGTH_SHORT).show();
     }
 
 
