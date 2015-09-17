@@ -111,11 +111,20 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             case R.id.ai_difficulty:
                 showDifficultyAlertDialog();
                 break;
+            case R.id.about:
+                showAboutDialog();
+                break;
             case R.id.quit:
                 quitGame();
                 break;
         }
         return true;
+    }
+
+    private void showAboutDialog() {
+        FragmentManager manager = getFragmentManager();
+        AboutAlertDialog aboutAlertDialog = new AboutAlertDialog();
+        aboutAlertDialog.show(manager, "about");
     }
 
     public void quitGame() {

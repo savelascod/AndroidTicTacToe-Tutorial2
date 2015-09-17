@@ -5,4 +5,5 @@
     <item android:id="@+id/ai_difficulty" android:title="@string/menu_ai_difficulty"
           android:icon="@drawable/difficulty_level"></item>
     <item android:id="@+id/quit" android:title="@string/menu_quit" android:icon="@drawable/quit_game"></item>
+    <item android:id="@+id/about" android:title="@string/about_label"></item>
 </menu>
