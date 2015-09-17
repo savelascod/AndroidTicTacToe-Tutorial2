@@ -11,11 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import edu.harding.tictactoe.DifficultyAlertDialog.AlertPositiveListener;
+import edu.harding.tictactoe.DifficultyAlertDialog.AlertPositiveLevelListener;
+import edu.harding.tictactoe.QuitAlertDialog.AlertPositiveQuitListener;
 
 import java.util.Random;
 
-public class AndroidTicTacToeActivity extends ActionBarActivity implements AlertPositiveListener {
+public class AndroidTicTacToeActivity extends ActionBarActivity implements AlertPositiveLevelListener, AlertPositiveQuitListener {
 
     private TicTacToeGame mGame;
 
@@ -117,7 +118,14 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     }
 
     public void quitGame() {
+        FragmentManager manager = getFragmentManager();
+        QuitAlertDialog quitAlertDialog = new QuitAlertDialog();
+        quitAlertDialog.show(manager, "alert_quit");
+    }
 
+    @Override
+    public void onPositiveQuitClick(boolean quit) {
+        AndroidTicTacToeActivity.this.finish();
     }
 
     public void showDifficultyAlertDialog() {
@@ -130,7 +138,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     }
 
     @Override
-    public void onPositiveClick(int position) {
+    public void onPositiveLevelClick(int position) {
         this.position = position;
         switch (position) {
             case 0:
@@ -142,6 +150,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             case 2:
                 mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
         }
+
     }
 
 
@@ -155,6 +164,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
 
     }
+
 
     //interface
 

@@ -14,20 +14,21 @@ import android.os.Bundle;
  */
 public class DifficultyAlertDialog extends DialogFragment {
 
-    AlertPositiveListener alertPositiveListener;
+    AlertPositiveLevelListener alertPositiveLevelListener;
+
     OnClickListener submitListener = new OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             AlertDialog alert = (AlertDialog) dialog;
             int position = alert.getListView().getCheckedItemPosition();
-            alertPositiveListener.onPositiveClick(position);
+            alertPositiveLevelListener.onPositiveLevelClick(position);
         }
     };
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            alertPositiveListener = (AlertPositiveListener) activity;
+            alertPositiveLevelListener = (AlertPositiveLevelListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + "must implement DialogPositiveListener");
         }
@@ -61,7 +62,7 @@ public class DifficultyAlertDialog extends DialogFragment {
         return alertDialog;
     }
 
-    interface AlertPositiveListener {
-        public void onPositiveClick(int position);
+    interface AlertPositiveLevelListener {
+        public void onPositiveLevelClick(int position);
     }
 }
