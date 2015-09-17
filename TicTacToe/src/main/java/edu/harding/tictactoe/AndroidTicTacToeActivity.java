@@ -1,5 +1,7 @@
 package edu.harding.tictactoe;
 
+
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,11 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import edu.harding.tictactoe.DifficultyAlertDialog.AlertPositiveListener;
 
 import java.util.Random;
 
-
-public class AndroidTicTacToeActivity extends ActionBarActivity {
+public class AndroidTicTacToeActivity extends ActionBarActivity implements AlertPositiveListener {
 
     private TicTacToeGame mGame;
 
@@ -28,6 +30,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
     private int totalHumanScore;
     private int totalAndroidScore;
 
+    private int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
         totalAndroidScore = 0;
         totalHumanScore = 0;
         totalTiesScore = 0;
+
+        position = 0;
 
         mBoardButtons = new Button[TicTacToeGame.BOARD_SIZE];
         mBoardButtons[0] = (Button) findViewById(R.id.one);
@@ -94,9 +100,50 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        startNewGame();
+
+
+        switch (item.getItemId()) {
+            case R.id.new_game:
+                startNewGame();
+                break;
+            case R.id.ai_difficulty:
+                showDifficultyAlertDialog();
+                break;
+            case R.id.quit:
+                quitGame();
+                break;
+        }
         return true;
     }
+
+    public void quitGame() {
+
+    }
+
+    public void showDifficultyAlertDialog() {
+        FragmentManager manager = getFragmentManager();
+        DifficultyAlertDialog difficultyAlertDialog = new DifficultyAlertDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        difficultyAlertDialog.setArguments(bundle);
+        difficultyAlertDialog.show(manager, "alert_dialog_radio");
+    }
+
+    @Override
+    public void onPositiveClick(int position) {
+        this.position = position;
+        switch (position) {
+            case 0:
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+                break;
+            case 1:
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+                break;
+            case 2:
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
+        }
+    }
+
 
     private void setMove(char player, int location) {
         mGame.setMove(player, location);
@@ -108,7 +155,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity {
             mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
 
     }
-
 
     //interface
 
