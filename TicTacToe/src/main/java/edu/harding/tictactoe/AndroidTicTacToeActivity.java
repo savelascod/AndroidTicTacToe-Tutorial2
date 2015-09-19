@@ -44,7 +44,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         totalTiesScore = 0;
 
         position = 0;
-
+        /*
         mBoardButtons = new Button[TicTacToeGame.BOARD_SIZE];
         mBoardButtons[0] = (Button) findViewById(R.id.one);
         mBoardButtons[1] = (Button) findViewById(R.id.two);
@@ -54,7 +54,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         mBoardButtons[5] = (Button) findViewById(R.id.six);
         mBoardButtons[6] = (Button) findViewById(R.id.seven);
         mBoardButtons[7] = (Button) findViewById(R.id.eight);
-        mBoardButtons[8] = (Button) findViewById(R.id.nine);
+        mBoardButtons[8] = (Button) findViewById(R.id.nine);*/
 
         mInfotextView = (TextView) findViewById(R.id.information);
 

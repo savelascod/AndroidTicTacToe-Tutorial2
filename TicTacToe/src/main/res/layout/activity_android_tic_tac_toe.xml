@@ -9,26 +9,9 @@
               android:paddingBottom="@dimen/activity_vertical_margin"
               tools:context=".AndroidTicTacToeActivity">
 
+    <edu.harding.tictactoe.BoardView android:layout_width="300dp" android:layout_height="300dp"
+                                     android:layout_marginTop="5dp" android:id="@+id/board"/>
 
-    <TableLayout android:id="@+id/play_grid"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">
-        <TableRow android:gravity="center_horizontal">
-            <Button android:id="@+id/one" android:width="100dp" android:textSize="70dp" android:text="1"/>
-            <Button android:id="@+id/two" android:width="100dp" android:textSize="70dp" android:text="2"/>
-            <Button android:id="@+id/three" android:width="100dp" android:textSize="70dp" android:text="3"/>
-        </TableRow>
-        <TableRow android:gravity="center_horizontal">
-            <Button android:id="@+id/four" android:width="100dp" android:textSize="70dp" android:text="4"/>
-            <Button android:id="@+id/five" android:width="100dp" android:textSize="70dp" android:text="5"/>
-            <Button android:id="@+id/six" android:width="100dp" android:textSize="70dp" android:text="6"/>
-        </TableRow>
-        <TableRow android:gravity="center_horizontal">
-            <Button android:id="@+id/seven" android:width="100dp" android:textSize="70dp" android:text="7"/>
-            <Button android:id="@+id/eight" android:width="100dp" android:textSize="70dp" android:text="8"/>
-            <Button android:id="@+id/nine" android:width="100dp" android:textSize="70dp" android:text="9 "/>
-        </TableRow>
-    </TableLayout>
     <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/information"
               android:gravity="center_horizontal" android:textSize="20dp" android:layout_marginTop="20dp"
               android:text="Info"/>

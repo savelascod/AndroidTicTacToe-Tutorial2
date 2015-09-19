@@ -16,6 +16,8 @@ public class BoardView extends View {
 
     private Paint mPaint;
 
+    private TicTacToeGame mGame;
+
     public BoardView(Context context) {
         super(context);
         initialize();
@@ -56,6 +58,36 @@ public class BoardView extends View {
 
         canvas.drawLine(0, cellHeight, boardWidth, cellHeight, mPaint);
         canvas.drawLine(0, cellHeight * 2, boardWidth, cellHeight * 2, mPaint);
+
+        for (int i = 0; i < TicTacToeGame.BOARD_SIZE; i++) {
+            int col = i % 3;
+            int row = i / 3;
+
+            int left = col;
+            int right = col + cellWidth - GRID_WIDH;
+            int top = row;
+            int bottom = row + cellHeight - GRID_WIDH;
+
+            if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.HUMAN_PLAYER) {
+                canvas.drawBitmap(mHumanBitmap, null, new Rect(left, top, right, bottom), null);
+            } else if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.COMPUTER_PLAYER) {
+                canvas.drawBitmap(mAndroidBitmap, null, new Rect(left, top, right, bottom), null);
+            }
+
+
+        }
+    }
+
+    public int getBoardCellWidth() {
+        return getWidth() / 3;
+    }
+
+    public int getBoardVellHeight() {
+        return getHeight() / 3;
+    }
+
+    public void setmGame(TicTacToeGame game) {
+        mGame = game;
     }
 
 }

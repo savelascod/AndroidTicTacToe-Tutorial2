@@ -139,6 +139,10 @@ public class TicTacToeGame {
         this.mDifficultyLevel = mDifficultyLevel;
     }
 
+    public char getBoardOccupant(int position) {
+        return mBoard[position];
+    }
+
     //computer's difficulty levels
     public enum DifficultyLevel {
         Easy, Harder, Expert
