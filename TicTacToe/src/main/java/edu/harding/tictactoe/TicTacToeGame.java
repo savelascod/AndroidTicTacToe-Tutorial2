@@ -34,10 +34,12 @@ public class TicTacToeGame {
 
     //Set the given player at the given location on the game board
     //the location must be avaliable or the board will not change
-    public void setMove(char player, int location) {
+    public boolean setMove(char player, int location) {
         if (this.mBoard[location] == this.OPEN_SPOT) {
             this.mBoard[location] = player;
+            return true;
         }
+        return false;
     }
 
     //return the best move for the computer to make. You must call setMove()

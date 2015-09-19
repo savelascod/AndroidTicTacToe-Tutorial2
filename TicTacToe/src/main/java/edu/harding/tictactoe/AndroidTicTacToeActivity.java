@@ -2,13 +2,9 @@ package edu.harding.tictactoe;
 
 
 import android.app.FragmentManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +30,23 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
     private int position;
 
+    private BoardView mBoardView;
+
+    private boolean mGameOver;
+    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            int col = (int) event.getX() / mBoardView.getBoardCellWidth();
+            int row = (int) event.getY() / mBoardView.getBoardVellHeight();
+            int pos = row * 3 + col;
+
+            if (!mGameOver && setMove(TicTacToeGame.HUMAN_PLAYER, pos)) {
+
+            }
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +57,11 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         totalTiesScore = 0;
 
         position = 0;
-        /*
+
+
         mBoardButtons = new Button[TicTacToeGame.BOARD_SIZE];
+
+        /*
         mBoardButtons[0] = (Button) findViewById(R.id.one);
         mBoardButtons[1] = (Button) findViewById(R.id.two);
         mBoardButtons[2] = (Button) findViewById(R.id.three);
@@ -63,6 +79,10 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         mAndroidScoretextView = (TextView) findViewById(R.id.score_android);
 
         mGame = new TicTacToeGame();
+        mBoardView = (BoardView) findViewById(R.id.board);
+        mBoardView.setmGame(mGame);
+
+        mBoardView.setOnTouchListener(mTouchListener);
 
         this.startNewGame();
     }
@@ -70,12 +90,17 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     private void startNewGame() {
         Random random = new Random();
         mGame.clearBoard();
+        mBoardView.invalidate();
+        mGameOver = false;
 
+        /*
         for (int i = 0; i < mBoardButtons.length; i++) {
             mBoardButtons[i].setText(" ");
             mBoardButtons[i].setEnabled(true);
             mBoardButtons[i].setOnClickListener(new ButtonClickListener(i));
-        }
+        }*/
+
+
         if (random.nextInt(2) == 0) {
             mInfotextView.setText(R.string.first_turn_human);
         } else {
@@ -84,8 +109,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             setMove(TicTacToeGame.COMPUTER_PLAYER, move);
         }
 
-    }
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,19 +189,15 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     }
 
 
-    private void setMove(char player, int location) {
-        mGame.setMove(player, location);
-        mBoardButtons[location].setEnabled(false);
-        mBoardButtons[location].setText(String.valueOf(player));
-        if (player == TicTacToeGame.HUMAN_PLAYER)
-            mBoardButtons[location].setTextColor(Color.rgb(0, 200, 0));
-        else
-            mBoardButtons[location].setTextColor(Color.rgb(200, 0, 0));
-
-    }
-
-
     //interface
+
+    private boolean setMove(char player, int location) {
+        if (mGame.setMove(player, location)) {
+            mBoardView.invalidate();
+            return true;
+        }
+        return false;
+    }
 
     private class ButtonClickListener implements View.OnClickListener {
         int location;
@@ -191,6 +212,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
                 setMove(TicTacToeGame.HUMAN_PLAYER, location);
 
                 int winner = mGame.checkForWinner();
+
                 if (winner == 0) {
                     mInfotextView.setText(R.string.turn_computer);
                     int move = mGame.getComputerMove();
@@ -203,17 +225,20 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
                     totalTiesScore += 1;
                     mInfotextView.setText(R.string.result_tie);
                     mTiesScoretextView.setText(String.valueOf(totalTiesScore));
+                    mGameOver = true;
 
 
                 } else if (winner == 2) {
                     totalHumanScore += 1;
                     mInfotextView.setText(R.string.result_human_win);
                     mHumanScoretextView.setText(String.valueOf(totalHumanScore));
+                    mGameOver = true;
 
                 } else {
                     totalAndroidScore += 1;
                     mInfotextView.setText(R.string.result_computer_win);
                     mAndroidScoretextView.setText(String.valueOf(totalAndroidScore));
+                    mGameOver = true;
 
                 }
 
