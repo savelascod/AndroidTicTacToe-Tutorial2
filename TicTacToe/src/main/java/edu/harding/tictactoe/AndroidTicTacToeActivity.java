@@ -40,12 +40,46 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             int row = (int) event.getY() / mBoardView.getBoardVellHeight();
             int pos = row * 3 + col;
 
-            if (!mGameOver && setMove(TicTacToeGame.HUMAN_PLAYER, pos)) {
 
+            if (!mGameOver && setMove(TicTacToeGame.HUMAN_PLAYER, pos)) {
+                makeAndroidMove();
             }
+
             return false;
         }
     };
+
+    private void makeAndroidMove() {
+        int winner = mGame.checkForWinner();
+
+        if (winner == 0) {
+            mInfotextView.setText(R.string.turn_computer);
+            int move = mGame.getComputerMove();
+            setMove(TicTacToeGame.COMPUTER_PLAYER, move);
+            winner = mGame.checkForWinner();
+        }
+        if (winner == 0) {
+            mInfotextView.setText(R.string.turn_human);
+        } else if (winner == 1) {
+            totalTiesScore += 1;
+            mInfotextView.setText(R.string.result_tie);
+            mTiesScoretextView.setText(String.valueOf(totalTiesScore));
+            mGameOver = true;
+
+        } else if (winner == 2) {
+            totalHumanScore += 1;
+            mInfotextView.setText(R.string.result_human_win);
+            mHumanScoretextView.setText(String.valueOf(totalHumanScore));
+            mGameOver = true;
+
+        } else {
+            totalAndroidScore += 1;
+            mInfotextView.setText(R.string.result_computer_win);
+            mAndroidScoretextView.setText(String.valueOf(totalAndroidScore));
+            mGameOver = true;
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +93,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         position = 0;
 
 
-        mBoardButtons = new Button[TicTacToeGame.BOARD_SIZE];
-
-        /*
-        mBoardButtons[0] = (Button) findViewById(R.id.one);
-        mBoardButtons[1] = (Button) findViewById(R.id.two);
-        mBoardButtons[2] = (Button) findViewById(R.id.three);
-        mBoardButtons[3] = (Button) findViewById(R.id.four);
-        mBoardButtons[4] = (Button) findViewById(R.id.five);
-        mBoardButtons[5] = (Button) findViewById(R.id.six);
-        mBoardButtons[6] = (Button) findViewById(R.id.seven);
-        mBoardButtons[7] = (Button) findViewById(R.id.eight);
-        mBoardButtons[8] = (Button) findViewById(R.id.nine);*/
-
         mInfotextView = (TextView) findViewById(R.id.information);
 
         mTiesScoretextView = (TextView) findViewById(R.id.score_ties);
@@ -84,7 +105,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
         mBoardView.setOnTouchListener(mTouchListener);
 
-        this.startNewGame();
+        startNewGame();
     }
 
     private void startNewGame() {
@@ -93,14 +114,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         mBoardView.invalidate();
         mGameOver = false;
 
-        /*
-        for (int i = 0; i < mBoardButtons.length; i++) {
-            mBoardButtons[i].setText(" ");
-            mBoardButtons[i].setEnabled(true);
-            mBoardButtons[i].setOnClickListener(new ButtonClickListener(i));
-        }*/
-
-
         if (random.nextInt(2) == 0) {
             mInfotextView.setText(R.string.first_turn_human);
         } else {
@@ -108,8 +121,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             int move = mGame.getComputerMove();
             setMove(TicTacToeGame.COMPUTER_PLAYER, move);
         }
-
-
     }
 
     @Override

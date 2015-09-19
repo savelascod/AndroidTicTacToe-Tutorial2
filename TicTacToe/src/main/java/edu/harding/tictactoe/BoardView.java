@@ -35,7 +35,7 @@ public class BoardView extends View {
 
 
     public void initialize() {
-        mAndroidBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.x_img);
+        mHumanBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.x_img);
         mAndroidBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.o_img);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
@@ -63,18 +63,16 @@ public class BoardView extends View {
             int col = i % 3;
             int row = i / 3;
 
-            int left = col;
-            int right = col + cellWidth - GRID_WIDH;
-            int top = row;
-            int bottom = row + cellHeight - GRID_WIDH;
+            int left = col * cellWidth;
+            int right = (col + 1) * cellWidth - GRID_WIDH;
+            int top = row * cellHeight;
+            int bottom = (row + 1) * cellHeight - GRID_WIDH;
 
             if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.HUMAN_PLAYER) {
                 canvas.drawBitmap(mHumanBitmap, null, new Rect(left, top, right, bottom), null);
             } else if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.COMPUTER_PLAYER) {
                 canvas.drawBitmap(mAndroidBitmap, null, new Rect(left, top, right, bottom), null);
             }
-
-
         }
     }
 
