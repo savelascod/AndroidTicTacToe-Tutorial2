@@ -219,15 +219,12 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     public void onResume() {
         super.onResume();
         mHumanMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.x_sound);
-        mAndroidMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.o_sound);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         mHumanMediaPlayer.release();
-        mAndroidMediaPlayer.release();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
