@@ -2,6 +2,7 @@ package edu.harding.tictactoe;
 
 
 import android.app.FragmentManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
@@ -14,6 +15,9 @@ import edu.harding.tictactoe.QuitAlertDialog.AlertPositiveQuitListener;
 import java.util.Random;
 
 public class AndroidTicTacToeActivity extends ActionBarActivity implements AlertPositiveLevelListener, AlertPositiveQuitListener {
+
+    private MediaPlayer mHumanMediaPlayer;
+    private MediaPlayer mAndroidMediaPlayer;
 
     private TicTacToeGame mGame;
 
@@ -39,7 +43,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             int col = (int) event.getX() / mBoardView.getBoardCellWidth();
             int row = (int) event.getY() / mBoardView.getBoardVellHeight();
             int pos = row * 3 + col;
-
 
             if (!mGameOver && setMove(TicTacToeGame.HUMAN_PLAYER, pos)) {
                 makeAndroidMove();
@@ -79,6 +82,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             mGameOver = true;
 
         }
+
     }
 
     @Override
@@ -205,9 +209,25 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     private boolean setMove(char player, int location) {
         if (mGame.setMove(player, location)) {
             mBoardView.invalidate();
+            mHumanMediaPlayer.start();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mHumanMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.x_sound);
+        mAndroidMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.o_sound);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        mHumanMediaPlayer.release();
+        mAndroidMediaPlayer.release();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
