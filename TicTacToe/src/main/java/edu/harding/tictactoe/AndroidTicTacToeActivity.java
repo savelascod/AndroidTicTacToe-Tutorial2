@@ -97,6 +97,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         outState.putInt("totalTiesScore", Integer.valueOf(totalTiesScore));
         outState.putCharSequence("info", mInfotextView.getText());
         outState.putBoolean("mHumanGoFirst", mHumanGoFirst);
+        outState.putString("difficulty", mGame.getmDifficultyLevel().name());
     }
 
     @Override
@@ -110,7 +111,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         totalTiesScore = savedInstanceState.getInt("totalTiesScore");
         mHumanGoFirst = savedInstanceState.getBoolean("mHumanGoFirst");
         mInfotextView.setText(savedInstanceState.getCharSequence("info"));
-
+        mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.valueOf(savedInstanceState.getString("difficulty")));
     }
 
     @Override
@@ -146,6 +147,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             totalTiesScore = savedInstanceState.getInt("totalTiesScore");
             mHumanGoFirst = savedInstanceState.getBoolean("mHumanGoFirst");
             mInfotextView.setText(savedInstanceState.getCharSequence("info"));
+            mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.valueOf(savedInstanceState.getString("difficulty")));
         }
         displayScores();
 
