@@ -268,7 +268,9 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     private boolean setMove(char player, int location) {
         if (mGame.setMove(player, location)) {
             mBoardView.invalidate();
-            mHumanMediaPlayer.start();
+            if (player == TicTacToeGame.HUMAN_PLAYER) {
+                mHumanMediaPlayer.start();
+            }
             return true;
         }
         return false;
