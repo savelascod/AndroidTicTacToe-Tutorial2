@@ -36,6 +36,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
     private BoardView mBoardView;
 
+    private boolean mHumanGoFirst;
+
     private boolean mGameOver;
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
@@ -86,6 +88,32 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharArray("board", mGame.getBoardState());
+        outState.putBoolean("mGameOver", mGameOver);
+        outState.putInt("totalHumanScore", Integer.valueOf(totalHumanScore));
+        outState.putInt("totalAndroidScore", Integer.valueOf(totalAndroidScore));
+        outState.putInt("totalTiesScore", Integer.valueOf(totalTiesScore));
+        outState.putCharSequence("info", mInfotextView.getText());
+        outState.putBoolean("mHumanGoFirst", mHumanGoFirst);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mGame.setBoardState(savedInstanceState.getCharArray("board"));
+        mGameOver = savedInstanceState.getBoolean("mGameOver");
+        totalHumanScore = savedInstanceState.getInt("totalHumanScore");
+        totalAndroidScore = savedInstanceState.getInt("totalAndroidScore");
+        totalTiesScore = savedInstanceState.getInt("totalTiesScore");
+        mHumanGoFirst = savedInstanceState.getBoolean("mHumanGoFirst");
+        mInfotextView.setText(savedInstanceState.getCharSequence("info"));
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_tic_tac_toe);
@@ -108,22 +136,51 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         mBoardView.setmGame(mGame);
 
         mBoardView.setOnTouchListener(mTouchListener);
+        if (savedInstanceState == null) {
+            startNewGame();
+        } else {
+            mGame.setBoardState(savedInstanceState.getCharArray("board"));
+            mGameOver = savedInstanceState.getBoolean("mGameOver");
+            totalHumanScore = savedInstanceState.getInt("totalHumanScore");
+            totalAndroidScore = savedInstanceState.getInt("totalAndroidScore");
+            totalTiesScore = savedInstanceState.getInt("totalTiesScore");
+            mHumanGoFirst = savedInstanceState.getBoolean("mHumanGoFirst");
+            mInfotextView.setText(savedInstanceState.getCharSequence("info"));
+        }
+        displayScores();
 
-        startNewGame();
+    }
+
+
+    private void displayScores() {
+        mHumanScoretextView.setText(Integer.toString(totalHumanScore));
+        mAndroidScoretextView.setText(Integer.toString(totalAndroidScore));
+        mTiesScoretextView.setText(Integer.toString(totalTiesScore));
     }
 
     private void startNewGame() {
-        Random random = new Random();
+
         mGame.clearBoard();
         mBoardView.invalidate();
         mGameOver = false;
 
-        if (random.nextInt(2) == 0) {
+        setTurn();
+
+        if (mHumanGoFirst) {
             mInfotextView.setText(R.string.first_turn_human);
         } else {
             mInfotextView.setText(R.string.first_turn_android);
             int move = mGame.getComputerMove();
             setMove(TicTacToeGame.COMPUTER_PLAYER, move);
+        }
+    }
+
+    private void setTurn() {
+        Random random = new Random();
+        if (random.nextInt(2) == 0) {
+            mHumanGoFirst = true;
+        } else {
+            mHumanGoFirst = false;
         }
     }
 

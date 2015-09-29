@@ -12,7 +12,17 @@ public class TicTacToeGame {
     public static final char COMPUTER_PLAYER = 'O';
     public static final char OPEN_SPOT = ' ';
     public static final int BOARD_SIZE = 9;
+
+    public char[] getBoardState() {
+        return mBoard;
+    }
+
+    public void setBoardState(char[] mBoardState) {
+        mBoard = mBoardState;
+    }
+
     public static String[] difficultyLevels = new String[]{
+
             "Easy", "Harder", "Expert"
     };
     private char mBoard[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
