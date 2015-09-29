@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".AndroidTicTacToeActivity">
+
+    <edu.harding.tictactoe.BoardView android:layout_width="270dp" android:layout_height="270dp"
+                                     android:layout_marginTop="5dp" android:id="@+id/board"/>
+
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/information"
+              android:gravity="center_horizontal" android:textSize="20dp" android:layout_marginTop="20dp"
+              android:text="Info" android:layout_toRightOf="@+id/board" android:layout_toEndOf="@+id/board"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+    </LinearLayout>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_board_label" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_board_label"
+              android:layout_below="@+id/information" android:layout_toRightOf="@+id/board"
+              android:layout_toEndOf="@+id/board" android:layout_marginLeft="20dp"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_human_label" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_human_label"
+              android:layout_below="@+id/score_board_label" android:layout_toRightOf="@+id/board"
+              android:layout_toEndOf="@+id/board" android:layout_marginLeft="20dp" android:layout_marginTop="10dp"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_human" android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/score_human"
+              android:layout_toEndOf="@+id/score_human_label" android:layout_alignTop="@+id/score_human_label"
+              android:layout_toRightOf="@+id/score_human_label"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_android_label" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_android_label"
+              android:layout_below="@+id/score_human_label" android:layout_toRightOf="@+id/board"
+              android:layout_toEndOf="@+id/board" android:layout_marginLeft="20dp"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_android" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_android"
+              android:layout_alignTop="@+id/score_android_label" android:layout_toRightOf="@+id/score_android_label"
+              android:layout_toEndOf="@+id/score_android_label"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_ties_label" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_ties_label"
+              android:layout_below="@+id/score_android_label" android:layout_toRightOf="@+id/board"
+              android:layout_toEndOf="@+id/board" android:layout_marginLeft="20dp"/>
+    <TextView android:paddingRight="7dp" android:id="@+id/score_ties" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="@string/score_android"
+              android:layout_below="@+id/score_android_label" android:layout_toRightOf="@+id/score_ties_label"
+              android:layout_toEndOf="@+id/score_ties_label"/>
+</RelativeLayout>
