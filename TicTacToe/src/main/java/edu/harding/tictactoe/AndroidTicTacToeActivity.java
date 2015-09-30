@@ -154,6 +154,10 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         }
         displayScores();
         mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
+        totalHumanScore = mPrefs.getInt("totalHumanScore", 0);
+        totalAndroidScore = mPrefs.getInt("totalAndroidScore", 0);
+        totalTiesScore = mPrefs.getInt("totalTiesScore", 0);
+
     }
 
 
