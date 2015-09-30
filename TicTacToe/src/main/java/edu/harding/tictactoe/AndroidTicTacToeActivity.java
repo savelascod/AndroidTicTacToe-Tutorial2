@@ -2,6 +2,7 @@ package edu.harding.tictactoe;
 
 
 import android.app.FragmentManager;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,8 @@ import edu.harding.tictactoe.QuitAlertDialog.AlertPositiveQuitListener;
 import java.util.Random;
 
 public class AndroidTicTacToeActivity extends ActionBarActivity implements AlertPositiveLevelListener, AlertPositiveQuitListener {
+
+    private SharedPreferences mPrefs;
 
     private MediaPlayer mHumanMediaPlayer;
     private MediaPlayer mAndroidMediaPlayer;
@@ -150,7 +153,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.valueOf(savedInstanceState.getString("difficulty")));
         }
         displayScores();
-
+        mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
     }
 
 
@@ -286,6 +289,17 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     public void onPause() {
         super.onPause();
         mHumanMediaPlayer.release();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putInt("totalHumanScore", totalHumanScore);
+        ed.putInt("totalAndroidScore", totalAndroidScore);
+        ed.putInt("totalTiesScore", totalTiesScore);
+        ed.commit();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
