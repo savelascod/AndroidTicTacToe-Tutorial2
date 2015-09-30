@@ -11,10 +11,10 @@ import android.os.Bundle;
 /**
  * Created by mordreth on 9/16/15.
  */
-public class QuitAlertDialog extends DialogFragment {
+public class RestartScoreAlertDialog extends DialogFragment {
 
     AlertPositiveQuitListener alertPositiveQuitListener;
-    OnClickListener quitListener = new OnClickListener() {
+    OnClickListener restartListener = new OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             alertPositiveQuitListener.onPositiveQuitClick(true);
@@ -37,13 +37,13 @@ public class QuitAlertDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         /** Setting a title for the window */
-        builder.setTitle("Quit Game");
+        builder.setTitle("Restart Game Score");
 
         /** Setting a label for the alert dialog**/
-        builder.setMessage("Are you sure you want to quit the game?");
+        builder.setMessage("Are you sure you want to restart the scores?");
 
         /** Setting a positive button and its listener **/
-        builder.setPositiveButton("Yes", quitListener);
+        builder.setPositiveButton("Yes", restartListener);
 
         /** Creating the alert dialog window using the builder class */
         AlertDialog alertDialog = builder.create();
@@ -53,6 +53,6 @@ public class QuitAlertDialog extends DialogFragment {
     }
 
     interface AlertPositiveQuitListener {
-        public void onPositiveQuitClick(boolean quit);
+        public void onPositiveQuitClick(boolean restartScore);
     }
 }

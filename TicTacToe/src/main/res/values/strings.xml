@@ -21,6 +21,7 @@
     <string name="menu_new_game">New Game</string>
     <string name="menu_ai_difficulty">Difficulty</string>
     <string name="menu_quit">Quit</string>
+    <string name="menu_restart_score">Restart Score</string>
     <string name="about">Tic Tac Toe By Alejandro Velasco</string>
     <string name="instructions">Choose from one of three difficulty levels. Dont let the Android beat you</string>
     <string name="about_label">About</string>

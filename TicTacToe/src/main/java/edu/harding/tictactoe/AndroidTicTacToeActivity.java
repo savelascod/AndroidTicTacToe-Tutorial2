@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.harding.tictactoe.DifficultyAlertDialog.AlertPositiveLevelListener;
-import edu.harding.tictactoe.QuitAlertDialog.AlertPositiveQuitListener;
+import edu.harding.tictactoe.RestartScoreAlertDialog.AlertPositiveQuitListener;
 
 import java.util.Random;
 
@@ -152,12 +152,12 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             mInfotextView.setText(savedInstanceState.getCharSequence("info"));
             mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.valueOf(savedInstanceState.getString("difficulty")));
         }
-        displayScores();
+
         mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
         totalHumanScore = mPrefs.getInt("totalHumanScore", 0);
         totalAndroidScore = mPrefs.getInt("totalAndroidScore", 0);
         totalTiesScore = mPrefs.getInt("totalTiesScore", 0);
-
+        displayScores();
     }
 
 
@@ -220,8 +220,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
             case R.id.about:
                 showAboutDialog();
                 break;
-            case R.id.quit:
-                quitGame();
+            case R.id.restart_score:
+                restartScore();
                 break;
         }
         return true;
@@ -233,15 +233,18 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         aboutAlertDialog.show(manager, "about");
     }
 
-    public void quitGame() {
+    public void restartScore() {
         FragmentManager manager = getFragmentManager();
-        QuitAlertDialog quitAlertDialog = new QuitAlertDialog();
-        quitAlertDialog.show(manager, "alert_quit");
+        RestartScoreAlertDialog restartScoreAlertDialog = new RestartScoreAlertDialog();
+        restartScoreAlertDialog.show(manager, "alert_restart_score");
     }
 
     @Override
-    public void onPositiveQuitClick(boolean quit) {
-        AndroidTicTacToeActivity.this.finish();
+    public void onPositiveQuitClick(boolean restartScore) {
+        totalAndroidScore = 0;
+        totalHumanScore = 0;
+        totalTiesScore = 0;
+        displayScores();
     }
 
     public void showDifficultyAlertDialog() {
