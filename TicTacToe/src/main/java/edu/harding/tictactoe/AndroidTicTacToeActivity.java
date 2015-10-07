@@ -2,6 +2,7 @@ package edu.harding.tictactoe;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -42,6 +43,9 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     private boolean mHumanGoFirst;
 
     private boolean mGameOver;
+
+    private boolean mGameSound;
+
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -204,6 +208,13 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CANCELED) {
+
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -222,6 +233,9 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
                 break;
             case R.id.restart_score:
                 restartScore();
+                break;
+            case R.id.settings:
+                startActivityForResult(new Intent(this, Settings.class), 0);
                 break;
         }
         return true;
