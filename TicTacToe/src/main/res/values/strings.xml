@@ -25,4 +25,7 @@
     <string name="about">Tic Tac Toe By Alejandro Velasco</string>
     <string name="instructions">Choose from one of three difficulty levels. Dont let the Android beat you</string>
     <string name="about_label">About</string>
+    <string name="difficulty_expert">Expert</string>
+    <string name="difficulty_harder">Harder</string>
+    <string name="difficulty_eady">Easy</string>
 </resources>

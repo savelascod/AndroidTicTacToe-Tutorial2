@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference android:key="sound" android:title="Sound" android:defaultValue="true"
+                        android:summary="Turn the sound on or off"/>
+    <CheckBoxPreference android:key="victory_message" android:summary="" android:defaultValue="@string/result_human_win"
+                        android:title="Victory messsage"/>
+    <CheckBoxPreference android:key="difficulty_level" android:title="Difficulty level" android:summary=""
+                        android:defaultValue="@string/difficulty_expert" android:entries="@array/List_difficulty_level"
+                        android:entryValues="@array/List_difficulty_level"/>
+
+</PreferenceScreen>
