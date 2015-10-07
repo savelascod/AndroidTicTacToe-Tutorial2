@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
@@ -167,6 +168,9 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mGameSound = mPrefs.getBoolean("sound", true);
+
+        Log.v("boolean", mPrefs.getString("difficulty_level", (String)getResources().getString(R.string.difficulty_harder)));
+
         String difficultyLevel = mPrefs.getString("difficulty_level", getResources().getString(R.string.difficulty_harder));
         if (difficultyLevel.equals(getResources().getString(R.string.difficulty_easy))) {
             mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
@@ -175,6 +179,7 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         } else {
             mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
         }
+
     }
 
 
