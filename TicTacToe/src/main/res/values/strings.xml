@@ -27,5 +27,5 @@
     <string name="about_label">About</string>
     <string name="difficulty_expert">Expert</string>
     <string name="difficulty_harder">Harder</string>
-    <string name="difficulty_eady">Easy</string>
+    <string name="difficulty_easy">Easy</string>
 </resources>
