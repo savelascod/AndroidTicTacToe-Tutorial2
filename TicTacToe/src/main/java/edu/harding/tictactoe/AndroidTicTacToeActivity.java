@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.Button;
@@ -80,7 +81,8 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
         } else if (winner == 2) {
             totalHumanScore += 1;
-            mInfotextView.setText(R.string.result_human_win);
+            String defaultMessage = getResources().getString(R.string.result_human_win);
+            mInfotextView.setText(mPrefs.getString("victory_message", defaultMessage));
             mHumanScoretextView.setText(String.valueOf(totalHumanScore));
             mGameOver = true;
 
@@ -162,6 +164,17 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         totalAndroidScore = mPrefs.getInt("totalAndroidScore", 0);
         totalTiesScore = mPrefs.getInt("totalTiesScore", 0);
         displayScores();
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mGameSound = mPrefs.getBoolean("sound", true);
+        String difficultyLevel = mPrefs.getString("difficulty_level", getResources().getString(R.string.difficulty_harder));
+        if (difficultyLevel.equals(getResources().getString(R.string.difficulty_easy))) {
+            mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+        } else if (difficultyLevel.equals(getResources().getString(R.string.difficulty_expert))) {
+            mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
+        } else {
+            mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+        }
     }
 
 
@@ -210,7 +223,15 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULT_CANCELED) {
-
+            mGameSound = mPrefs.getBoolean("sound", true);
+            String difficultyLevel = mPrefs.getString("difficulty_level", getResources().getString(R.string.difficulty_harder));
+            if (difficultyLevel.equals(getResources().getString(R.string.difficulty_easy))) {
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Easy);
+            } else if (difficultyLevel.equals(getResources().getString(R.string.difficulty_expert))) {
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Expert);
+            } else {
+                mGame.setmDifficultyLevel(TicTacToeGame.DifficultyLevel.Harder);
+            }
         }
     }
 
@@ -222,18 +243,6 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
 
 
         switch (item.getItemId()) {
-            case R.id.new_game:
-                startNewGame();
-                break;
-            case R.id.ai_difficulty:
-                showDifficultyAlertDialog();
-                break;
-            case R.id.about:
-                showAboutDialog();
-                break;
-            case R.id.restart_score:
-                restartScore();
-                break;
             case R.id.settings:
                 startActivityForResult(new Intent(this, Settings.class), 0);
                 break;
@@ -293,7 +302,9 @@ public class AndroidTicTacToeActivity extends ActionBarActivity implements Alert
         if (mGame.setMove(player, location)) {
             mBoardView.invalidate();
             if (player == TicTacToeGame.HUMAN_PLAYER) {
-                mHumanMediaPlayer.start();
+                if (mGameSound) {
+                    mHumanMediaPlayer.start();
+                }
             }
             return true;
         }
